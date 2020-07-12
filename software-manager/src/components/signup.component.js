@@ -6,14 +6,23 @@ export default class Signup extends Component {
     render() {
         return (
             <form action='/signup' method="POST">
-                <label>Name:</label>
-                <input type="text" placeholder="Name"></input>
-                <label>Email:</label>
-                <input type="text" placeholder="Email"></input>
-                <label>Password:</label>
-                <input type="password" placeholder="Password"></input>
-                <label>Confirm Password:</label>
-                <input type="password" placeholder="Confirm password"></input>
+                <div className="form-group">
+                    <label>Name:</label>
+                    <input type="text" class="form-control" placeholder="Name" id="name"></input>
+                </div>
+                <div className="form-group">
+                    <label for="email">Email:</label>
+                    <input type="text" class="form-control" placeholder="Email" id="email"></input>
+                </div>
+                <div className="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control" placeholder="Password" id="password"></input>
+                </div>
+                <div className="form-group">
+                    <label for="password-confirm">Confirm Password:</label>
+                    <input type="password" class="form-control" placeholder="Confirm password" id="password-confirm"></input>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         );
     }
