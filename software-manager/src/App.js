@@ -13,7 +13,7 @@ function App() {
       <div>
       <Navbar/>
         <br/>
-        <Route path = "/signup" exact component={Signup} />
+        <Route path = "/signup" component={Signup} />
       </div>
     </Router>
   );
