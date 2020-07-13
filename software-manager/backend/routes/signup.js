@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const bcrypt = require('bcrypt');
 let User = require('../models/user.model');
 
 router.route('/').get( (req, res) => {
@@ -8,11 +9,11 @@ router.route('/').get( (req, res) => {
     res.send("SignUp");
 });
 
-router.route('/').post( (req, res) => {
+router.route('/').post( async (req, res) => {
     //console.log(req.body);
     const name = req.body.name;
     const email = req.body.email;
-    const password = req.body.password;
+    const password = await bcrypt.hash(req.body.password, 10);
 
     const newUser = new User({name, email, password}); // TODO add hash and salt to pwd
 
