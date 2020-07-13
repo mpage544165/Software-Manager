@@ -59,7 +59,7 @@ export default class Signup extends Component {
         axios.post('http://localhost:5000/signup/', user)
             .then(res => console.log(res.data));
 
-        //window.location = '/';
+        window.location = '/login';
     }
 
     render() {
