@@ -9,6 +9,7 @@ import Navbar from "./components/navbar.component";
 import Signup from "./components/signup.component";
 import Login from "./components/login.component";
 import Dashboard from './components/dashboard.component';
+import CreateProject from './components/create-project.component';
 
 export default class App extends Component {
   constructor(props) {
@@ -43,6 +44,7 @@ export default class App extends Component {
           <Route path = "/signup" component={Signup} />
           <Route path = "/login" render={props => <Login isLoggedIn={this.state.isLoggedIn} />} />
           <Route path = "/dashboard" render={props => <Dashboard isLoggedIn={this.state.isLoggedIn} checkLoggedIn = {this.checkLoggedIn} />}/>
+          <Route path = "/createproject" render={props => <CreateProject isLoggedIn={this.state.isLoggedIn} checkLoggedIn = {this.checkLoggedIn} />}/>
           <Route path = "/logout" render={props => <Login isLoggedIn={this.state.isLoggedIn} />} />
         </div>
       </Router>

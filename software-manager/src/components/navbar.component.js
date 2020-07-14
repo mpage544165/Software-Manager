@@ -21,8 +21,8 @@ export default class Navbar extends Component {
         return (
             <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
                 <Link to="/" className="navbar-brand mr-auto">Home</Link>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-                    <span class="navbar-toggler-icon"></span>
+                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                    <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse navbar-right" id="collapsibleNavbar">
                 <ul className="nav navbar-nav">
@@ -37,9 +37,14 @@ export default class Navbar extends Component {
                         </div>
                     }
                     {this.props.isLoggedIn &&
-                        <li className="navbar-item">
-                            <Link to="/logout" className="nav-link" onClick={this.logout()}>Logout</Link>
-                        </li>
+                        <div className="d-flex">
+                            <li className="navbar-item">
+                                <Link to="/createproject" className="nav-link">Create Project</Link>
+                            </li>
+                            <li className="navbar-item">
+                                <Link to="/logout" className="nav-link" onClick={this.logout}>Logout</Link>
+                            </li>
+                        </div>
                     }
                 </ul>
                 </div>

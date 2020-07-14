@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 //import {Link} from 'react-router-dom';
-//import axios from'axios';
+import axios from'axios';
 
 export default class CreateProject extends Component {
     constructor(props) {
@@ -9,6 +9,7 @@ export default class CreateProject extends Component {
         this.onChangeName = this.onChangeName.bind(this);
         this.onChangeDescription = this.onChangeDescription.bind(this);
         this.onChangeAudience = this.onChangeAudience.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
             name: '',
@@ -17,19 +18,19 @@ export default class CreateProject extends Component {
         }
     }
 
-    onChangeName() {
+    onChangeName(e) {
         this.setState({
             name: e.target.value
         });
     }
 
-    onChangeDescription() {
+    onChangeDescription(e) {
         this.setState({
             description: e.target.value
         });
     }
 
-    onChangeAudience() {
+    onChangeAudience(e) {
         this.setState({
             audience: e.target.value
         });
@@ -44,7 +45,8 @@ export default class CreateProject extends Component {
             audience: this.state.audience,
         }
 
-        axios.post('http://localhost:5000/dashboard/createproject/', project)
+        axios.defaults.withCredentials = true;
+        axios.post('http://localhost:5000/dashboard/createproject/', project, {withCredentials: true})
             .then(res => console.log(res.data));
 
         //window.location = '/login';
@@ -58,7 +60,7 @@ export default class CreateProject extends Component {
                     <input type="text" className="form-control"required value={this.state.name} onChange={this.onChangeName} placeholder="Project Name" id="name"></input>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="email">Project Description:</label>
+                    <label htmlFor="description">Project Description:</label>
                     <textarea className="form-control" value={this.state.description} onChange={this.onChangeDescription} id="description"></textarea>
                 </div>
                 <div className="form-group">

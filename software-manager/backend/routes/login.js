@@ -1,7 +1,7 @@
 const router = require('express').Router();
 let User = require('../models/user.model');
 const passport = require('passport');
-const axios =require('axios');
+const axios = require('axios');
 
 router.route('/').get( (req, res) => {
     /*User.find()

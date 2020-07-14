@@ -1,5 +1,6 @@
 const router = require('express').Router();
 let User = require('../models/user.model');
+let Project = require('../models/project.model');
 
 router.route('/').get(checkAuthenticated, (req, res) => {
     /*User.find()
@@ -9,12 +10,18 @@ router.route('/').get(checkAuthenticated, (req, res) => {
     res.send("Dashboard");
 });
 
-router.route('/createproject').post(checkAuthenticated, (req, res) => {
+router.route('/createproject').post((req, res) => {
   console.log("creating project");
-    //req.session.user = newUser;
-    //res.redirect('/protected_page');
-    //res.json("Post recieived");
-    res.json('In Dashboard');
+
+  const project = new Project({
+    name: req.body.name,
+    description: req.body.description,
+    audience: req.body.audience
+  });
+
+  project.save()
+    .then(() => res.json('Project created!'))
+    .catch(err => res.status(400).json('Error: ' + err));
 });
 
 function checkAuthenticated(req, res, next) {
