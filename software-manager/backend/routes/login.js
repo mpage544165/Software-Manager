@@ -21,6 +21,15 @@ router.route('/').post(passport.authenticate('local'), (req, res) => {
     })
 })
 
+router.route('/logged_in').post( (req, res) => {
+    if (req.isAuthenticated()) {
+        res.send(true);
+    }
+    else {
+        res.send(false);
+    }
+})
+
 
 /*router.route('/').post( (req, res) => {
     console.log(req.body);

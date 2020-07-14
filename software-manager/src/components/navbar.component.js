@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import router from '../../backend/routes/users';
 
 export default class Navbar extends Component {
 
