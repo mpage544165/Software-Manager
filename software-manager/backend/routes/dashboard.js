@@ -9,8 +9,8 @@ router.route('/').get(checkAuthenticated, (req, res) => {
     res.send("Dashboard");
 });
 
-router.route('/add').get(checkAuthenticated, (req, res) => {
-  console.log("In add");
+router.route('/createproject').post(checkAuthenticated, (req, res) => {
+  console.log("creating project");
     //req.session.user = newUser;
     //res.redirect('/protected_page');
     //res.json("Post recieived");

@@ -20,16 +20,21 @@ export default class Navbar extends Component {
         console.log("props", this.props.isLoggedIn);
         return (
             <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
-                <Link to="/" className="navbar-brand">Home</Link>
-                <div className="collapse navbar-collapse">
-                <ul className="navbar-nav mr-auto">
+                <Link to="/" className="navbar-brand mr-auto">Home</Link>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div className="collapse navbar-collapse navbar-right" id="collapsibleNavbar">
+                <ul className="nav navbar-nav">
                     {!this.props.isLoggedIn && 
-                        <li className="navbar-item">
-                            <Link to="/login" className="nav-link">Login</Link>
-                        </li> &&
-                        <li className="navbar-item">
-                            <Link to="/signup" className="nav-link">Signup</Link>
-                        </li>
+                        <div className="d-flex">
+                            <li className="navbar-item">
+                                <Link to="/login" className="nav-link">Login</Link>
+                            </li>
+                            <li className="navbar-item">
+                                <Link to="/signup" className="nav-link">Signup</Link>
+                            </li>
+                        </div>
                     }
                     {this.props.isLoggedIn &&
                         <li className="navbar-item">
