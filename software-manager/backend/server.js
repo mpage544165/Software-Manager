@@ -49,12 +49,14 @@ connection.once('open', () => {
 const userRouter = require('./routes/users');
 const signupRouter = require('./routes/signup');
 const loginRouter = require('./routes/login');
+const logoutRouter = require('./routes/logout');
 const dashboardRouter = require('./routes/dashboard');
 //const User = require('./models/user.model');
 
 app.use('/users', userRouter);
 app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
+app.use('/logout', logoutRouter);
 app.use('/dashboard', dashboardRouter);
 
 function checkAthenticated(req, res, next) {
@@ -69,7 +71,7 @@ function checkNotAuthenticated(req, res, next) {
     }
     next();
   }
-
+  
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });

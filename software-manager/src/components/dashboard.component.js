@@ -1,29 +1,17 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
-import axios from'axios';
+//import {Link} from 'react-router-dom';
+//import axios from'axios';
 
 export default class Dashboard extends Component {
     constructor(props) {
         super(props);
 
-        this.checkLoggedIn();
-
-        this.state ={
-            isLoggedIn: false
-        }
-    }
-
-    checkLoggedIn() {
-        axios.defaults.withCredentials = true;
-        axios.post('http://localhost:5000/login/logged_in/', {withCredentials: true})
-            .then(res => {
-                console.log("is logged in", res.data);
-                this.setState({isLoggedIn: res.data});
-            });
+        this.props.checkLoggedIn();  
     }
 
     render() {
-        if (this.state.isLoggedIn) {
+        console.log("Dash", this.props.isLoggedIn)
+        if (this.props.isLoggedIn) {
             return <h1>Hello User</h1>; 
         }
         else {

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+//import {Link} from 'react-router-dom';
 import axios from'axios';
 
 export default class Login extends Component {
@@ -41,9 +41,15 @@ export default class Login extends Component {
 
         axios.defaults.withCredentials = true;
         axios.post('http://localhost:5000/login/', user, {withCredentials: true})
-            .then(res => console.log(res.data));
-
-        //window.location = '/';
+            .then(res => {
+                console.log(res.data);
+                if (res.data) {
+                    window.location = '/dashboard';
+                }
+                else {
+                    window.location = '/login';
+                }
+            });
     }
 
     render() {

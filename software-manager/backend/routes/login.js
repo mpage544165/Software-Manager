@@ -17,7 +17,8 @@ router.route('/').post(passport.authenticate('local'), (req, res) => {
             console.log(err);
         }
         console.log(req.session);
-        res.redirect('/dashboard');
+        //res.redirect('/dashboard');
+        res.send(true);
     })
 })
 
