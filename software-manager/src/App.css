@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+
+.day {
+  height: 120px;
+  width: 162.8px;
+  
+  border: 1px solid black;
+  
+}
+
+.day-empty {
+  height: 100px;
+  width: 100px;
+  float: left;
+}
