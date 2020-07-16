@@ -16,8 +16,8 @@ export default class Dashboard extends Component {
             return (
                 <div className="container-fluid">
                     <div className="row">
-                        <nav class="col-md-3">
-                            <ul class="navbar-nav">
+                        <nav className="col-md-3">
+                            <ul className="navbar-nav">
                                 <li className="nav-item">
                                     <Link to="/dashboard" className="nav-link">&nbsp; Dashboard</Link>
                                 </li>

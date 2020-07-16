@@ -1,6 +1,23 @@
 import React, {Component} from 'react';
 //import {Link} from 'react-router-dom';
 import axios from'axios';
+//import Project from '../../backend/models/project.model';
+
+class ProjectItem extends Component {
+    constructor(props) {
+        super(props);
+
+          this.state = {
+              name: this.props.name,
+              description: this.props.description,
+          }
+    }
+    render() {
+        return (
+            <a href="#" className="list-group-item list-group-item-action">{this.state.name} <span className="badge badge-pill badge-primary float-right">0</span></a>
+        );
+    }
+}
 
 export default class CreateProject extends Component {
     constructor(props) {
@@ -12,10 +29,28 @@ export default class CreateProject extends Component {
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
+            projects: [],
             name: '',
             description: '',
             audience: ''
         }
+    }
+
+    componentDidMount() {
+        axios.defaults.withCredentials = true;
+        axios.post('http://localhost:5000/dashboard/projects/', {withCredentials: true})
+            .then(res => {
+                console.log(res.data);
+                this.setState({
+                    projects: res.data
+                });
+            });
+    }
+
+    projectList() {
+        return(this.state.projects.map(item => {
+            return <ProjectItem name={item.name} description={item.description} key={item._id}/>
+        }))
     }
 
     onChangeName(e) {
@@ -40,9 +75,11 @@ export default class CreateProject extends Component {
         e.preventDefault();
 
         const project = {
+            userId: '',
             name: this.state.name,
             description: this.state.description,
             audience: this.state.audience,
+            backlog: []
         }
 
         axios.defaults.withCredentials = true;
@@ -58,6 +95,12 @@ export default class CreateProject extends Component {
     render() {
         return(
             <div className="container">
+
+                {this.projectList()}
+
+                <br/>
+                <h2>Create Project</h2>
+
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label htmlFor="name">Project Name:</label>

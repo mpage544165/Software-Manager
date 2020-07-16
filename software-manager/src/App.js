@@ -51,8 +51,13 @@ setCurrentProject(id) {
           <br/>
           <Route path = "/signup" component={Signup} />
           <Route path = "/login" render={props => <Login isLoggedIn={this.state.isLoggedIn} />} />
-          <Route path = "/dashboard" render={props => <Dashboard isLoggedIn={this.state.isLoggedIn} checkLoggedIn = {this.checkLoggedIn} setCurrentProject={this.setCurrentProject} currentProject={this.state.currentProject}/>}/>
-          <Route path = "/createproject" render={props => <CreateProject isLoggedIn={this.state.isLoggedIn} checkLoggedIn = {this.checkLoggedIn} />}/>
+          <Route path = "/dashboard" 
+                  render={props => <Dashboard 
+                  isLoggedIn={this.state.isLoggedIn} 
+                  checkLoggedIn = {this.checkLoggedIn} 
+                  setCurrentProject={this.setCurrentProject} 
+                  currentProject={this.state.currentProject}/>}/>
+          <Route path = "/createproject" render={props => <CreateProject isLoggedIn={this.state.isLoggedIn} checkLoggedIn = {this.checkLoggedIn} setCurrentProject={this.setCurrentProject} />}/>
           <Route path = "/logout" render={props => <Login isLoggedIn={this.state.isLoggedIn} />} />
           <Route path = "/calendar" component={Calendar} />
           <Route path = "/backlog" component={Backlog} />

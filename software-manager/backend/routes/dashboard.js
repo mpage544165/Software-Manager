@@ -10,18 +10,31 @@ router.route('/').get(checkAuthenticated, (req, res) => {
     res.send("Dashboard");
 });
 
+router.route('/projects').post((req, res) => {
+  console.log("projects:");
+  console.log(req.user);
+
+  Project.find({userId: req.user._id})
+        .then(projects => {console.log('Found:', projects); res.json(projects);
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
 router.route('/createproject').post((req, res) => {
   console.log("creating project");
 
   const project = new Project({
+    userId: req.user._id,
     name: req.body.name,
     description: req.body.description,
     audience: req.body.audience,
     backlog: []
   });
 
+  console.log(project);
+
   project.save()
-    .then(() => res.json(project))
+    .then(() => {console.log('saved'); res.json(project);})
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
