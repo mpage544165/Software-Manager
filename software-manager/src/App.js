@@ -18,9 +18,11 @@ export default class App extends Component {
     super(props);
 
     this.checkLoggedIn = this.checkLoggedIn.bind(this);
+    this.setCurrentProject = this.setCurrentProject.bind(this);
 
     this.state = {
-      isLoggedIn: false
+      isLoggedIn: false,
+      currentProject: null,
     }
   }
 
@@ -37,6 +39,10 @@ export default class App extends Component {
         });
 }
 
+setCurrentProject(id) {
+  this.setState({currentProject: id});
+}
+
   render() {
     return (
       <Router>
@@ -47,7 +53,7 @@ export default class App extends Component {
           <br/>
           <Route path = "/signup" component={Signup} />
           <Route path = "/login" render={props => <Login isLoggedIn={this.state.isLoggedIn} />} />
-          <Route path = "/dashboard" render={props => <Dashboard isLoggedIn={this.state.isLoggedIn} checkLoggedIn = {this.checkLoggedIn} />}/>
+          <Route path = "/dashboard" render={props => <Dashboard isLoggedIn={this.state.isLoggedIn} checkLoggedIn = {this.checkLoggedIn} setCurrentProject={this.setCurrentProject} currentProject={this.state.currentProject}/>}/>
           <Route path = "/createproject" render={props => <CreateProject isLoggedIn={this.state.isLoggedIn} checkLoggedIn = {this.checkLoggedIn} />}/>
           <Route path = "/logout" render={props => <Login isLoggedIn={this.state.isLoggedIn} />} />
           <Route path = "/calendar" component={Calendar} />

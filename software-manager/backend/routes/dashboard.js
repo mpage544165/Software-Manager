@@ -16,12 +16,37 @@ router.route('/createproject').post((req, res) => {
   const project = new Project({
     name: req.body.name,
     description: req.body.description,
-    audience: req.body.audience
+    audience: req.body.audience,
+    backlog: []
   });
 
   project.save()
-    .then(() => res.json('Project created!'))
+    .then(() => res.json(project))
     .catch(err => res.status(400).json('Error: ' + err));
+});
+
+router.route('/:id/backlog').post((req, res) => {
+  console.log("backlog items:");
+
+  Project.find({id: id})
+        .then(backlog => {res.json(backlog)
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
+router.route('/:id/addBacklogItem').post((req, res) => {
+  console.log("adding product backlog item");
+
+  Project.findById(req.params.id)
+        .then(project => {
+           const item = req.body.task;
+           project.backlog.push(item);
+
+            project.save()
+                .then(() => res.json('Project item added!'))
+                .catch(err => res.status(400).json('Error: ' + err));
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
 });
 
 function checkAuthenticated(req, res, next) {

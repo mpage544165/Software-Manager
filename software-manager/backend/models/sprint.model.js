@@ -13,9 +13,10 @@ const sprintSchema = new Schema({
     backlog: {
         type: [{
             task: String, 
-            priority: Number
+            priority: Number,
+            completed: Boolean
         }],
-        required: true,
+        required: false,
         unique: false,
         trim: false,
         minlength: 3

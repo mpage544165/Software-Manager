@@ -24,6 +24,17 @@ const projectSchema = new Schema({
         trim: false,
         minlength: 3
     },
+    backlog: {
+        type: [{
+            task: String, 
+            priority: Number,
+            completed: Boolean
+        }],
+        required: false,
+        unique: false,
+        trim: false,
+        minlength: 3
+    },
 }, {
     timestamps: true,
 });

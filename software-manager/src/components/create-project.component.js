@@ -47,7 +47,10 @@ export default class CreateProject extends Component {
 
         axios.defaults.withCredentials = true;
         axios.post('http://localhost:5000/dashboard/createproject/', project, {withCredentials: true})
-            .then(res => console.log(res.data));
+            .then(res => {
+                console.log(res.data);
+                this.props.setCurrentProject(res.data._id);
+            });
 
         //window.location = '/login';
     }
