@@ -48,8 +48,6 @@ setCurrentProject(id) {
       <Router>
         <div>
         <Navbar isLoggedIn = {this.state.isLoggedIn}/>
-        <Calendar/>
-        <Backlog />
           <br/>
           <Route path = "/signup" component={Signup} />
           <Route path = "/login" render={props => <Login isLoggedIn={this.state.isLoggedIn} />} />
@@ -57,6 +55,7 @@ setCurrentProject(id) {
           <Route path = "/createproject" render={props => <CreateProject isLoggedIn={this.state.isLoggedIn} checkLoggedIn = {this.checkLoggedIn} />}/>
           <Route path = "/logout" render={props => <Login isLoggedIn={this.state.isLoggedIn} />} />
           <Route path = "/calendar" component={Calendar} />
+          <Route path = "/backlog" component={Backlog} />
         </div>
       </Router>
     );
