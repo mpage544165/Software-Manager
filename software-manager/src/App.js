@@ -11,6 +11,7 @@ import Login from "./components/login.component";
 import Dashboard from './components/dashboard.component';
 import CreateProject from './components/create-project.component';
 import Calendar from './components/calendar-component';
+import Backlog from './components/backlog.component'
 
 export default class App extends Component {
   constructor(props) {
@@ -42,6 +43,7 @@ export default class App extends Component {
         <div>
         <Navbar isLoggedIn = {this.state.isLoggedIn}/>
         <Calendar/>
+        <Backlog />
           <br/>
           <Route path = "/signup" component={Signup} />
           <Route path = "/login" render={props => <Login isLoggedIn={this.state.isLoggedIn} />} />

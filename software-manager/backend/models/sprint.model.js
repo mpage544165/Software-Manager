@@ -3,8 +3,18 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const sprintSchema = new Schema({
-    task: {
+    projectId: {
         type: String,
+        required: true,
+        unique: true,
+        trim: false,
+        minlength: 3
+    },
+    backlog: {
+        type: [{
+            task: String, 
+            priority: Number
+        }],
         required: true,
         unique: false,
         trim: false,
@@ -33,6 +43,6 @@ const sprintSchema = new Schema({
     timestamps: true,
 });
 
-const Sprint = mongoose.model('ProSprintject', sprintSchema);
+const Sprint = mongoose.model('Sprint', sprintSchema);
 
 module.exports = Sprint;
