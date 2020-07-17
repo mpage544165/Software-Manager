@@ -2,38 +2,56 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 //import axios from'axios';
 import Calendar from './calendar-component';
+import Projects from './create-project.component';
+import Backlog from'./backlog.component';
+
+const activeComponent = {
+    calendar: <Calendar />,
+    projects: <Projects />,
+    backlog: <Backlog />
+  };
 
 export default class Dashboard extends Component {
     constructor(props) {
         super(props);
 
-        //this.props.checkLoggedIn();  
+        this.state = {
+            activeComponent: "calendar"
+        }
+
+        this.props.checkLoggedIn();  
+    }
+
+    setActiveComponent(comp) {
+        this.setState({
+            activeComponent: comp
+        })
     }
 
     render() {
         console.log("Dash", this.props.isLoggedIn)
-        if (!this.props.isLoggedIn) {
+        if ( this.props.isLoggedIn) {
             return (
                 <div className="container-fluid">
                     <div className="row">
                         <nav className="col-md-3">
                             <ul className="navbar-nav">
                                 <li className="nav-item">
-                                    <Link to="/dashboard" className="nav-link">&nbsp; Dashboard</Link>
+                                    <button className="btn btn-link" onClick={() => this.setActiveComponent('calendar')}>Dashboard</button>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/createproject" className="nav-link">&nbsp; Projects</Link>
+                                    <button className="btn btn-link" onClick={() => this.setActiveComponent('projects')}>Projects</button>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/backlog" className="nav-link">&nbsp; Backlog</Link>
+                                    <button className="btn btn-link" onClick={() => this.setActiveComponent('backlog')}>Backlog</button>
                                 </li>
                                 <li className="nav-item">
-                                <Link to="/sprints" className="nav-link">&nbsp; Sprints</Link>
+                                    <Link to="/sprints" className="nav-link">&nbsp; Sprints</Link>
                                 </li>
                             </ul>
                         </nav>
                         <div className="col-md-8">
-                            <Calendar />
+                            {activeComponent[this.state.activeComponent]}
                         </div>
                     </div>
                 </div>

@@ -49,12 +49,13 @@ export default class Backlog extends Component {
             <div className="container list-group">
                 <BacklogItem />
 
+                <br/>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label htmlFor="task">Task:</label>
                         <input type="text" className="form-control" value={this.state.task} onChange={this.onChangeEmail} placeholder="Add task..." id="task"></input>
                     </div>
-                    <label for="priority">Task Priority:</label>
+                    <label htmlFor="priority">Task Priority:</label>
                     <select class="form-control" id="priority">
                         <option>1</option>
                         <option>2</option>

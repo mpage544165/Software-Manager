@@ -34,7 +34,7 @@ export default class App extends Component {
     axios.defaults.withCredentials = true;
     axios.post('http://localhost:5000/login/logged_in/', {withCredentials: true})
         .then(res => {
-            console.log("is logged in", res.data);
+            console.log("is logged in:", res.data);
             this.setState({isLoggedIn: res.data});
         });
 }
@@ -60,7 +60,7 @@ setCurrentProject(id) {
           <Route path = "/createproject" render={props => <CreateProject isLoggedIn={this.state.isLoggedIn} checkLoggedIn = {this.checkLoggedIn} setCurrentProject={this.setCurrentProject} />}/>
           <Route path = "/logout" render={props => <Login isLoggedIn={this.state.isLoggedIn} />} />
           <Route path = "/calendar" component={Calendar} />
-          <Route path = "/backlog" component={Backlog} />
+          
         </div>
       </Router>
     );

@@ -39,6 +39,9 @@ export default class Navbar extends Component {
                     {this.props.isLoggedIn &&
                         <div className="d-flex">
                             <li className="navbar-item">
+                                <Link to="/dashboard" className="nav-link">Dashboard</Link>
+                            </li>
+                            <li className="navbar-item">
                                 <Link to="/createproject" className="nav-link">Create Project</Link>
                             </li>
                             <li className="navbar-item">
