@@ -40,7 +40,9 @@ export default class App extends Component {
 }
 
 setCurrentProject(id) {
-  this.setState({currentProject: id});
+  this.setState({currentProject: id}, () => {
+      console.log('id:', this.state.currentProject);
+  });
 }
 
   render() {
@@ -57,10 +59,10 @@ setCurrentProject(id) {
                   checkLoggedIn = {this.checkLoggedIn} 
                   setCurrentProject={this.setCurrentProject} 
                   currentProject={this.state.currentProject}/>}/>
-          <Route path = "/createproject" render={props => <CreateProject isLoggedIn={this.state.isLoggedIn} checkLoggedIn = {this.checkLoggedIn} setCurrentProject={this.setCurrentProject} />}/>
+          <Route path = "/createproject" render={props => <CreateProject isLoggedIn={this.state.isLoggedIn} checkLoggedIn = {this.checkLoggedIn} />}/>
           <Route path = "/logout" render={props => <Login isLoggedIn={this.state.isLoggedIn} />} />
           <Route path = "/calendar" component={Calendar} />
-          
+          <Route path = "/backlog" component={<Backlog />}/>
         </div>
       </Router>
     );

@@ -5,22 +5,32 @@ import Calendar from './calendar-component';
 import Projects from './create-project.component';
 import Backlog from'./backlog.component';
 
-const activeComponent = {
-    calendar: <Calendar />,
-    projects: <Projects />,
-    backlog: <Backlog />
-  };
-
 export default class Dashboard extends Component {
     constructor(props) {
         super(props);
+
+        this.activeComponent = this.activeComponent.bind(this);
 
         this.state = {
             activeComponent: "calendar"
         }
 
-        this.props.checkLoggedIn();  
+        this.props.checkLoggedIn(); 
     }
+
+    activeComponent({ currentProject, comp}) {
+        return (
+          <div>
+            {
+              {
+                calendar: <Calendar currentProject={currentProject} />,
+                projects: <Projects currentProject={currentProject} setCurrentProject={this.props.setCurrentProject}/>,
+                backlog: <Backlog currentProject={currentProject} />,
+              }[comp]
+            }
+          </div>
+        );
+      }
 
     setActiveComponent(comp) {
         this.setState({
@@ -51,7 +61,7 @@ export default class Dashboard extends Component {
                             </ul>
                         </nav>
                         <div className="col-md-8">
-                            {activeComponent[this.state.activeComponent]}
+                            {this.activeComponent({currentProject: this.props.currentProject, comp: this.state.activeComponent})}
                         </div>
                     </div>
                 </div>

@@ -10,11 +10,23 @@ class ProjectItem extends Component {
           this.state = {
               name: this.props.name,
               description: this.props.description,
+              id: this.props.id,
           }
     }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({ 
+            name: nextProps.name,
+            description: nextProps.description,
+            id: nextProps.id
+        });  
+    }
+
+    comp
+
     render() {
         return (
-            <a href="#" className="list-group-item list-group-item-action">{this.state.name} <span className="badge badge-pill badge-primary float-right">0</span></a>
+            <a href="#" className="list-group-item list-group-item-action" onClick={() => this.props.setCurrentProject(this.state.id)}>{this.state.name} <span className="badge badge-pill badge-primary float-right">0</span></a>
         );
     }
 }
@@ -49,7 +61,7 @@ export default class CreateProject extends Component {
 
     projectList() {
         return(this.state.projects.map(item => {
-            return <ProjectItem name={item.name} description={item.description} key={item._id}/>
+            return <ProjectItem name={item.name} description={item.description} id={item._id} key={item._id} setCurrentProject={this.props.setCurrentProject}/>
         }))
     }
 

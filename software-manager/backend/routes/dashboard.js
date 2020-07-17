@@ -38,11 +38,11 @@ router.route('/createproject').post((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/:id/backlog').post((req, res) => {
+router.route('/:id/backlog').get((req, res) => {
   console.log("backlog items:");
 
-  Project.find({id: id})
-        .then(backlog => {res.json(backlog)
+  Project.findById(req.params.id)
+        .then(project => {res.json(project.backlog)
         })
         .catch(err => res.status(400).json('Error: ' + err));
 });
@@ -52,8 +52,15 @@ router.route('/:id/addBacklogItem').post((req, res) => {
 
   Project.findById(req.params.id)
         .then(project => {
-           const item = req.body.task;
-           project.backlog.push(item);
+
+            const item = {
+              task: req.body.task,
+              priority: req.body.priority
+            }
+
+            console.log(item);
+
+            project.backlog.push(item);
 
             project.save()
                 .then(() => res.json('Project item added!'))

@@ -7,15 +7,17 @@ export default class BacklogItem extends Component {
         super(props);
 
           this.state = {
-              task: '',
-              priority: 0
+              task: this.props.task,
+              priority: this.props.priority
           }
     }
 
     render() {
 
         return (
-        <a href="#" class="list-group-item list-group-item-action">{this.state.task} <span class="badge badge-pill badge-primary float-right">{this.state.priority}</span></a>
+        <a href="#" className="list-group-item list-group-item-action" >{this.state.task} 
+            <span className="badge badge-pill badge-primary float-right">{this.state.priority}</span>
+        </a>
         );
     }
 }
