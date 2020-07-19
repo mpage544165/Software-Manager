@@ -1,6 +1,7 @@
 const router = require('express').Router();
 let User = require('../models/user.model');
 let Project = require('../models/project.model');
+let Sprint = require('../models/sprint.model');
 
 router.route('/').get(checkAuthenticated, (req, res) => {
     /*User.find()
@@ -49,6 +50,38 @@ router.route('/:id/backlog').get((req, res) => {
 
 router.route('/:id/addBacklogItem').post((req, res) => {
   console.log("adding product backlog item");
+
+  Project.findById(req.params.id)
+        .then(project => {
+
+            const item = {
+              task: req.body.task,
+              priority: req.body.priority
+            }
+
+            console.log(item);
+
+            project.backlog.push(item);
+
+            project.save()
+                .then(() => res.json('Project item added!'))
+                .catch(err => res.status(400).json('Error: ' + err));
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
+//Sprint
+router.route('/:id/createSprint').get((req, res) => {
+  console.log("creating sprint");
+
+  Project.findById(req.params.id)
+        .then(project => {res.json(project.backlog)
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
+router.route('/:id/addSprint').post((req, res) => {
+  console.log("adding sprint backlog item");
 
   Project.findById(req.params.id)
         .then(project => {
