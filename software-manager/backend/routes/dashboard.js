@@ -80,6 +80,20 @@ router.route('/:id/createSprint').get((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.route('/:id/createSprint').post((req, res) => {
+  const sprint = new Sprint({
+    projectId: req.body.projectId,
+    backlog: req.body.backlog,
+    description: req.body.description,
+    startDate: req.body.startDate,
+    endDate: req.body.endDate
+  });
+
+  sprint.save()
+        .then(() => {console.log('saved'); res.json(sprint);})
+        .catch(err => console.log(err));
+})
+
 router.route('/:id/addSprint').post((req, res) => {
   console.log("adding sprint backlog item");
 

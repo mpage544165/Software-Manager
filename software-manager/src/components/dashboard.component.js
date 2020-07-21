@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import Calendar from './calendar-component';
 import Projects from './create-project.component';
 import Backlog from'./backlog.component';
+import Sprint from './sprint.component';
 
 export default class Dashboard extends Component {
     constructor(props) {
@@ -26,6 +27,7 @@ export default class Dashboard extends Component {
                 calendar: <Calendar currentProject={currentProject} />,
                 projects: <Projects currentProject={currentProject} setCurrentProject={this.props.setCurrentProject}/>,
                 backlog: <Backlog currentProject={currentProject} />,
+                sprints: <Sprint currentProject={currentProject} />
               }[comp]
             }
           </div>
@@ -56,7 +58,7 @@ export default class Dashboard extends Component {
                                     <button className="btn btn-link" onClick={() => this.setActiveComponent('backlog')}>Backlog</button>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/sprints" className="nav-link">&nbsp; Sprints</Link>
+                                    <button className="btn btn-link" onClick={() => this.setActiveComponent('sprints')}>Sprints</button>
                                 </li>
                             </ul>
                         </nav>
