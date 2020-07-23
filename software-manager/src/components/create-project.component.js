@@ -22,8 +22,6 @@ class ProjectItem extends Component {
         });  
     }
 
-    comp
-
     render() {
         return (
             <a href="#" className="list-group-item list-group-item-action" onClick={() => this.props.setCurrentProject(this.state.id)}>{this.state.name} <span className="badge badge-pill badge-primary float-right">0</span></a>

@@ -17,12 +17,14 @@ export default class Calendar extends Component {
         this.setState({day: dayNumber});
     }
 
+    
+
     render() {
 
         return (
             <div className="day col">
-                <h3 className="float-right">{this.props.dayNum}</h3>
-                
+                <h3 className="day-number float-right">{this.props.dayNum}</h3>
+                <div className="sprint-bar">&nbsp;</div>
             </div>
         );
     }
