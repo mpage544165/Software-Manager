@@ -131,7 +131,7 @@ export default class Backlog extends Component {
                 <form onSubmit={this.onSubmitSprint}>
                     <div className="form-group">
                         <label htmlFor="description">Sprint Description:</label>
-                        <input type="text" className="form-control" value={this.state.task} onChange={this.onChangeSprintDescription} placeholder="Add description..." id="description"></input>
+                        <input type="text" className="form-control" value={this.state.sprintDescription} onChange={this.onChangeSprintDescription} placeholder="Add description..." id="description"></input>
                     </div>
                     <div className="form-group">
                         <label htmlFor="start-date">Start Date:</label>
