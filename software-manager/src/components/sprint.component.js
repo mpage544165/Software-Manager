@@ -51,7 +51,7 @@ export default class Sprint extends Component {
         this.onSubmit = this.onSubmit.bind(this);
 
           this.state = {
-              sprints: [],
+              sprints: this.props.sprints,
               description: '',
               startDate: new Date(),
               endDate: new Date(),

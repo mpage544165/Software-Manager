@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 //import {Link} from 'react-router-dom';
-//import axios from'axios';
+import axios from'axios';
 import Calendar from './calendar-component';
 import Projects from './create-project.component';
 import Backlog from'./backlog.component';
@@ -11,23 +11,25 @@ export default class Dashboard extends Component {
         super(props);
 
         this.activeComponent = this.activeComponent.bind(this);
+        this.setSprints = this.setSprints.bind(this);
 
         this.state = {
-            activeComponent: "calendar"
+            activeComponent: "sprint",
+            sprints: []
         }
 
         this.props.checkLoggedIn(); 
     }
 
-    activeComponent({ currentProject, comp}) {
+    activeComponent({ currentProject, sprints, comp}) {
         return (
           <div>
             {
               {
-                calendar: <Calendar currentProject={currentProject} />,
+                calendar: <Calendar currentProject={currentProject} sprints={sprints} />,
                 projects: <Projects currentProject={currentProject} setCurrentProject={this.props.setCurrentProject}/>,
                 backlog: <Backlog currentProject={currentProject} />,
-                sprints: <Sprint currentProject={currentProject} />
+                sprints: <Sprint currentProject={currentProject} sprints={this.state.sprints} />
               }[comp]
             }
           </div>
@@ -40,6 +42,28 @@ export default class Dashboard extends Component {
         })
     }
 
+    setSprints() {
+        axios.get(`http://localhost:5000/dashboard/${this.props.currentProject}/sprints/`)
+            .then(res => {
+                this.setState({sprints: res.data}, () => {
+                    console.log("Project", this.props.currentProject, "Sprints: ", res.data); 
+                })
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
+    componentDidMount() {
+        this.setSprints();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.currentProject !== this.props.currentProject) {
+            this.setSprints();
+        }
+    }
+
     render() {
         console.log("Dash", this.props.isLoggedIn)
         if ( this.props.isLoggedIn) {
@@ -49,7 +73,7 @@ export default class Dashboard extends Component {
                         <nav className="col-md-3">
                             <ul className="navbar-nav">
                                 <li className="nav-item">
-                                    <button className="btn btn-link" onClick={() => this.setActiveComponent('calendar')}>Dashboard</button>
+                                    <button className="btn btn-link" onClick={() => {this.setActiveComponent('calendar'); this.setSprints()}}>Dashboard</button>
                                 </li>
                                 <li className="nav-item">
                                     <button className="btn btn-link" onClick={() => this.setActiveComponent('projects')}>Projects</button>
@@ -63,7 +87,7 @@ export default class Dashboard extends Component {
                             </ul>
                         </nav>
                         <div className="col-md-8">
-                            {this.activeComponent({currentProject: this.props.currentProject, comp: this.state.activeComponent})}
+                            {this.activeComponent({currentProject: this.props.currentProject, sprints: this.state.sprints, comp: this.state.activeComponent})}
                         </div>
                     </div>
                 </div>

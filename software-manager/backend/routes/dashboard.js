@@ -72,7 +72,7 @@ router.route('/:id/addBacklogItem').post((req, res) => {
 
 //Sprint
 router.route('/:id/sprints').get((req, res) => {
-  console.log("creating sprint");
+  console.log("finding sprints");
 
   Sprint.find({projectId: req.params.id})
         .then(sprints => {

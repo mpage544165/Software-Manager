@@ -31,22 +31,29 @@ export default class Calendar extends Component {
             currentDate: new Date(),
             days: [],
             breakPoint: 4
-        } 
-        
-        
+        }
+        console.log('Props::', this.props);   
     }
 
     componentDidMount() {
         this.setCalendarDays(this.state.currentDate.getMonth(), this.state.currentDate.getFullYear());
+        
     }
 
     setCalendarDays(month, year) {
+        let prevMonth = 0;
+        let nextMonth = 0;
+
         if (month > 11) {
             month = 0;
+            prevMonth = 11;
+            nextMonth = 1;
             year++;
         }
         else if (month < 0) {
             month = 11;
+            prevMonth = 10;
+            nextMonth = 0;
             year--;
         }
 
@@ -57,18 +64,57 @@ export default class Calendar extends Component {
         let nextMonthCounter = 1;
         let lastMonthCounter = numDaysInMonth[(month + 11) % 12];
 
-        let newDays = []
+        let isSprintDay = false;
+        let sprintDayCounter = 0;
+        let activeSprints = this.props.sprints;//.filter(sprint => {if (sprint.startDay.getMonth() === month) return sprint;});
+        console.log('Sprint props: ', activeSprints);
+
+        let currentDate = new Date();
+        let newDays = [];
         for (let i = 0; i < 42; i++) {
-            if(i < startDay) {
-                newDays.push(<CalendarDay dayNum={lastMonthCounter - (startDay - i) + 1} key={i}/>)
+
+            if (i < startDay) {
+                currentDate = new Date(year, prevMonth, lastMonthCounter - (startDay - i) + 1);
+
+                newDays.push(<CalendarDay dayNum={currentDate.getDate()} isSprintDay={isSprintDay} key={i}/>);
             }
-            else if (i > (numDaysInMonth[month] + startDay - 1)){
-                newDays.push(<CalendarDay dayNum={nextMonthCounter} key={i}/>)
+            else if (i > (numDaysInMonth[month] + startDay - 1)) {
+                currentDate = new Date(year, nextMonth, nextMonthCounter);
+                newDays.push(<CalendarDay dayNum={nextMonthCounter} isSprintDay={isSprintDay} key={i}/>);
                 nextMonthCounter++;
             }
             else {
-                newDays.push(<CalendarDay dayNum={i - startDay + 1} key={i}/>)
+                currentDate = new Date(year, month, i - startDay + 1);
+
+                if (currentDate.toDateString() === new Date(this.props.sprints[0].startDate).toDateString()) {
+                    sprintDayCounter = (Math.round((new Date(this.props.sprints[0].endDate) - new Date(this.props.sprints[0].startDate)) / (1000*60*60*24)));
+                    console.log(sprintDayCounter);
+                }
+                else if (sprintDayCounter > 0) {
+                    isSprintDay = true;
+                    sprintDayCounter--;
+                }
+                else {
+                    isSprintDay = false;
+                }
+                newDays.push(<CalendarDay dayNum={currentDate.getDate()} isSprintDay={isSprintDay} key={i}/>);
             }
+
+            /*
+            // last month
+            if(i < startDay) {
+                newDays.push(<CalendarDay dayNum={lastMonthCounter - (startDay - i) + 1} isSprintDay={isSprintDay} key={i}/>)
+            }
+            // next month
+            else if (i > (numDaysInMonth[month] + startDay - 1)){
+                newDays.push(<CalendarDay dayNum={nextMonthCounter} isSprintDay={isSprintDay} key={i}/>)
+                nextMonthCounter++;
+            }
+            // current month
+            else {
+
+                newDays.push(<CalendarDay dayNum={i - startDay + 1} isSprintDay={isSprintDay} key={i}/>)
+            }*/
             
         }
 
@@ -86,22 +132,22 @@ export default class Calendar extends Component {
                 <h2>Sprint Calendar</h2>
 
                 <nav aria-label="Page navigation example">
-  <ul className="pagination">
-    <li className="page-item">
-      <a className="page-link" href="#" aria-label="Previous" onClick={() => this.setCalendarDays(this.state.currentDate.getMonth() - 1, this.state.currentDate.getFullYear())}>
-        <span aria-hidden="true">&laquo;</span>
-        <span className="sr-only">Previous</span>
-      </a>
-    </li>
-        <li className="page-item"><a className="page-link" href="#">{monthNames[this.state.currentDate.getMonth()]} {this.state.currentDate.getFullYear()}</a></li>
-    <li className="page-item">
-      <a className="page-link" href="#" aria-label="Next" onClick={() => this.setCalendarDays(this.state.currentDate.getMonth() + 1, this.state.currentDate.getFullYear())}>
-        <span aria-hidden="true">&raquo;</span>
-        <span className="sr-only">Next</span>
-      </a>
-    </li>
-  </ul>
-</nav>
+                <ul className="pagination">
+                    <li className="page-item">
+                    <a className="page-link" href="#" aria-label="Previous" onClick={() => this.setCalendarDays(this.state.currentDate.getMonth() - 1, this.state.currentDate.getFullYear())}>
+                        <span aria-hidden="true">&laquo;</span>
+                        <span className="sr-only">Previous</span>
+                    </a>
+                    </li>
+                        <li className="page-item"><a className="page-link" href="#">{monthNames[this.state.currentDate.getMonth()]} {this.state.currentDate.getFullYear()}</a></li>
+                    <li className="page-item">
+                    <a className="page-link" href="#" aria-label="Next" onClick={() => this.setCalendarDays(this.state.currentDate.getMonth() + 1, this.state.currentDate.getFullYear())}>
+                        <span aria-hidden="true">&raquo;</span>
+                        <span className="sr-only">Next</span>
+                    </a>
+                    </li>
+                </ul>
+                </nav>
 
                 <div className="row">
                     <div className="col border">Sunday</div>
