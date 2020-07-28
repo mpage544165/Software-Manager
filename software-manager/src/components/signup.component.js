@@ -64,26 +64,29 @@ export default class Signup extends Component {
 
     render() {
         return (
-            <div className="container">
-                <form onSubmit={this.onSubmit}>
-                    <div className="form-group">
-                        <label htmlFor="name">Name:</label>
-                        <input type="text" className="form-control"required value={this.state.name} onChange={this.onChangeName} placeholder="Name" id="name"></input>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="email">Email:</label>
-                        <input type="text" className="form-control" value={this.state.email} onChange={this.onChangeEmail} placeholder="Email" id="email"></input>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="password">Password:</label>
-                        <input type="password" className="form-control" value={this.state.password} onChange={this.onChangePassword} placeholder="Password" id="password"></input>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="password-confirm">Confirm Password:</label>
-                        <input type="password" className="form-control" value={this.state.confirmPassword} onChange={this.onChangeConfirmPassword} placeholder="Confirm password" id="password-confirm"></input>
-                    </div>
-                    <button type="submit" className="btn btn-primary">Submit</button>
-                </form>
+            <div className="container-fluid div-1 pt-5">
+                <div className="container bg-dark-green border border-dark p-3 w-25">
+                    <h1>Sign Up</h1>
+                    <form onSubmit={this.onSubmit}>
+                        <div className="form-group">
+                            <label htmlFor="name">Name:</label>
+                            <input type="text" className="form-control"required value={this.state.name} onChange={this.onChangeName} placeholder="Name" id="name"></input>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="email">Email:</label>
+                            <input type="text" className="form-control" value={this.state.email} onChange={this.onChangeEmail} placeholder="Email" id="email"></input>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="password">Password:</label>
+                            <input type="password" className="form-control" value={this.state.password} onChange={this.onChangePassword} placeholder="Password" id="password"></input>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="password-confirm">Confirm Password:</label>
+                            <input type="password" className="form-control" value={this.state.confirmPassword} onChange={this.onChangeConfirmPassword} placeholder="Confirm password" id="password-confirm"></input>
+                        </div>
+                        <button type="submit" className="btn btn-primary">Submit</button>
+                    </form>
+                </div>
             </div>
         );
     }

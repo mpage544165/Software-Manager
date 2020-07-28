@@ -54,18 +54,21 @@ export default class Login extends Component {
 
     render() {
         return (
-            <div className="container">
-                <form onSubmit={this.onSubmit}>
-                    <div className="form-group">
-                        <label htmlFor="email">Email:</label>
-                        <input type="text" className="form-control" value={this.state.email} onChange={this.onChangeEmail} placeholder="Email" id="email"></input>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="password">Password:</label>
-                        <input type="password" className="form-control" value={this.state.password} onChange={this.onChangePassword} placeholder="Password" id="password"></input>
-                    </div>
-                    <button type="submit" className="btn btn-primary">Login</button>
-                </form>
+            <div className="container-fluid div-1 pt-5">
+                <div className="container bg-dark-green border border-dark p-3 w-25">
+                    <h1>Login</h1>
+                    <form onSubmit={this.onSubmit}>
+                        <div className="form-group">
+                            <label htmlFor="email">Email:</label>
+                            <input type="text" className="form-control" value={this.state.email} onChange={this.onChangeEmail} placeholder="Email" id="email"></input>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="password">Password:</label>
+                            <input type="password" className="form-control" value={this.state.password} onChange={this.onChangePassword} placeholder="Password" id="password"></input>
+                        </div>
+                        <button type="submit" className="btn btn-primary">Login</button>
+                    </form>
+                </div>
             </div>
         );
     }

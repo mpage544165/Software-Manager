@@ -1,3 +1,8 @@
+
+#root {
+  background-color: rgba(150, 223, 150, 0.5);
+}
+
 .App {
   text-align: center;
 }
@@ -35,6 +40,20 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+/* Home Page */
+.div-1 {
+  background-color: rgba(150, 223, 150, 0.5);
+  height: 100vh;
+}
+
+.div-2 {
+  background-color: rgba(150, 223, 150, 0.274);
+}
+
+.bg-dark-green {
+  background-color: rgba(22, 100, 22, 0.39);
 }
 
 .day {

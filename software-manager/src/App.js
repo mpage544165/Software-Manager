@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import axios from 'axios';
 
 import Navbar from "./components/navbar.component";
+import Home from "./components/home.component";
 import Signup from "./components/signup.component";
 import Login from "./components/login.component";
 import Dashboard from './components/dashboard.component';
@@ -50,7 +51,7 @@ setCurrentProject(id) {
       <Router>
         <div>
         <Navbar isLoggedIn = {this.state.isLoggedIn}/>
-          <br/>
+          <Route exact path="/" component={Home}/>
           <Route path = "/signup" component={Signup} />
           <Route path = "/login" render={props => <Login isLoggedIn={this.state.isLoggedIn} />} />
           <Route path = "/dashboard" 
