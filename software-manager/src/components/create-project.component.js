@@ -7,24 +7,43 @@ class ProjectItem extends Component {
     constructor(props) {
         super(props);
 
+        this.selectItem = this.selectItem.bind(this);
+
+        let selected = false;
+        if (this.props.currentProject === this.props.id) {
+            selected = true;
+        }
+
           this.state = {
               name: this.props.name,
               description: this.props.description,
               id: this.props.id,
+              isSelected: selected
           }
     }
 
-    componentWillReceiveProps(nextProps) {
+    /*componentWillReceiveProps(nextProps) {
         this.setState({ 
             name: nextProps.name,
             description: nextProps.description,
-            id: nextProps.id
+            id: nextProps.id,
+            isSelected: false
         });  
+    }*/
+
+    selectItem() {
+        this.setState({isSelected: !this.state.isSelected});
+        console.log(this.state);
     }
 
     render() {
         return (
-            <a href="#" className="list-group-item list-group-item-action" onClick={() => this.props.setCurrentProject(this.state.id)}>{this.state.name} <span className="badge badge-pill badge-primary float-right">0</span></a>
+            <a href="#" className={`list-group-item list-group-item-action`} 
+                onClick={() => {this.props.setCurrentProject(this.state.id); this.selectItem(); console.log(this.state)}}> 
+                {this.state.name}
+                {this.state.isSelected ? <span className="fa fa-check float-right text-success"></span> : <span className="fa fa-check float-right text-light"></span>} 
+                <span className="badge badge-pill badge-primary float-right mr-2">0</span>
+            </a>
         );
     }
 }
@@ -59,7 +78,7 @@ export default class CreateProject extends Component {
 
     projectList() {
         return(this.state.projects.map(item => {
-            return <ProjectItem name={item.name} description={item.description} id={item._id} key={item._id} setCurrentProject={this.props.setCurrentProject}/>
+            return <ProjectItem name={item.name} description={item.description} id={item._id} currentProject={this.props.currentProject} key={item._id} setCurrentProject={this.props.setCurrentProject}/>
         }))
     }
 
@@ -105,11 +124,12 @@ export default class CreateProject extends Component {
     render() {
         return(
             <div className="container">
+                <h2>Current Projects</h2>
 
                 {this.projectList()}
 
                 <br/>
-                <h2>Create Project</h2>
+                <h2>Create a new project</h2>
 
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
