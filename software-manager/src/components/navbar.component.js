@@ -19,8 +19,8 @@ export default class Navbar extends Component {
 
         console.log("props", this.props.isLoggedIn);
         return (
-            <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
-                <Link to="/" className="navbar-brand mr-auto">Home</Link>
+            <nav className="navbar navbar-dark bg-green navbar-expand-lg">
+                <Link to="/" className="navbar-brand text-light">Home</Link>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -29,23 +29,23 @@ export default class Navbar extends Component {
                     {!this.props.isLoggedIn && 
                         <div className="d-flex">
                             <li className="navbar-item">
-                                <Link to="/login" className="nav-link">Login</Link>
+                                <Link to="/login" className="nav-link text-light">Login</Link>
                             </li>
                             <li className="navbar-item">
-                                <Link to="/signup" className="nav-link">Signup</Link>
+                                <Link to="/signup" className="nav-link text-light">Signup</Link>
                             </li>
                         </div>
                     }
                     {this.props.isLoggedIn &&
                         <div className="d-flex">
                             <li className="navbar-item">
-                                <Link to="/dashboard" className="nav-link">Dashboard</Link>
+                                <Link to="/dashboard" className="nav-link text-light">Dashboard</Link>
                             </li>
                             <li className="navbar-item">
-                                <Link to="/createproject" className="nav-link">Create Project</Link>
+                                <Link to="/createproject" className="nav-link text-light">Create Project</Link>
                             </li>
                             <li className="navbar-item">
-                                <Link to="/logout" className="nav-link" onClick={this.logout}>Logout</Link>
+                                <Link to="/logout" className="nav-link text-light" onClick={this.logout}>Logout</Link>
                             </li>
                         </div>
                     }

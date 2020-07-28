@@ -57,7 +57,7 @@
 }
 
 .sprint-bar {
-  background-color: rgb(10, 194, 10);
+  background-color: rgb(75, 165, 75);
   margin-top: 50%;
 }
 
@@ -68,4 +68,8 @@
   float: left;
   width: 15% ;
   padding: 0 ;
+}
+
+.bg-green {
+  background-color: rgb(1, 75, 1);
 }
