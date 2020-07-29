@@ -122,42 +122,48 @@ export default class Backlog extends Component {
     render() {
         return (
             <div className="container list-group">
+                <h2>Project Backlog</h2>
                 {this.backlogItems()}
                 <br/>
 
-                {this.state.selectedTasks.length &&
+                {this.state.selectedTasks.length > 0 &&
 
                 //todo make sprint form a component
-                <form onSubmit={this.onSubmitSprint}>
-                    <div className="form-group">
-                        <label htmlFor="description">Sprint Description:</label>
-                        <input type="text" className="form-control" value={this.state.sprintDescription} onChange={this.onChangeSprintDescription} placeholder="Add description..." id="description"></input>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="start-date">Start Date:</label>
-                        <input type="date" className="form-control" onChange={this.onChangeStartDate} id="start-date"></input>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="end-date">End Date:</label>
-                        <input type="date" className="form-control" onChange={this.onChangeEndDate} id="end-date"></input>
-                    </div>
-                    <button type="submit" className="btn btn-success">Create Sprint</button>
-                    <br/>
-                </form>}
+                <div className="bg-dark-green border border-dark p-3 mb-2">
+                    <form onSubmit={this.onSubmitSprint}>
+                        <div className="form-group">
+                            <label htmlFor="description">Sprint Description:</label>
+                            <input type="text" className="form-control" value={this.state.sprintDescription} onChange={this.onChangeSprintDescription} placeholder="Add description..." id="description"></input>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="start-date">Start Date:</label>
+                            <input type="date" className="form-control" onChange={this.onChangeStartDate} id="start-date"></input>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="end-date">End Date:</label>
+                            <input type="date" className="form-control" onChange={this.onChangeEndDate} id="end-date"></input>
+                        </div>
+                        <button type="submit" className="btn btn-success">Create Sprint</button>
+                        <br/>
+                    </form>
+                </div>}
                 
+                <h2>Add new task to backlog</h2>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label htmlFor="task">Task:</label>
                         <input type="text" className="form-control" value={this.state.task} onChange={this.onChangeTask} placeholder="Add task..." id="task"></input>
                     </div>
-                    <label htmlFor="priority">Task Priority:</label>
-                    <select className="form-control" id="priority" onChange={this.onChangePriority}>
-                        <option defaultValue={true}>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
+                    <div className="form-group">
+                        <label htmlFor="priority">Task Priority:</label>
+                        <select className="form-control" id="priority" onChange={this.onChangePriority}>
+                            <option defaultValue={true}>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
                     <button type="submit" className="btn btn-primary">Add to Backlog</button>
                 </form>
             </div>
