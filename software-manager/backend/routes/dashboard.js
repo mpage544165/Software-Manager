@@ -39,6 +39,19 @@ router.route('/createproject').post((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.route('/:id/update').post((req, res) => {
+  Project.findById(req.params.id)
+    .then(project => {
+      project.name = req.body.name;
+      project.description = req.body.description;
+      project.audience = req.body.audience;
+
+      project.save()
+                .then(() => res.json('Project Updated!'))
+                .catch(err => res.status(400).json('Error: ' + err));
+    });
+});
+
 router.route('/:id/backlog').get((req, res) => {
   console.log("backlog items:");
 

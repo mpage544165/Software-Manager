@@ -1,13 +1,20 @@
 import React, {Component} from 'react';
 //import {Link} from 'react-router-dom';
 import axios from'axios';
-//import Project from '../../backend/models/project.model';
+import Accordion from 'react-bootstrap/Accordion';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 
 class ProjectItem extends Component {
     constructor(props) {
         super(props);
 
         this.selectItem = this.selectItem.bind(this);
+        this.setEditable= this.setEditable.bind(this);
+        this.onChangeName = this.onChangeName.bind(this);
+        this.onChangeDescription = this.onChangeDescription.bind(this);
+        this.onChangeAudience = this.onChangeAudience.bind(this);
+        this.onSaveChanges = this.onSaveChanges.bind(this);
 
         let selected = false;
         if (this.props.currentProject === this.props.id) {
@@ -17,8 +24,10 @@ class ProjectItem extends Component {
           this.state = {
               name: this.props.name,
               description: this.props.description,
+              audience: this.props.audience,
               id: this.props.id,
-              isSelected: selected
+              isSelected: selected,
+              isEditable: false
           }
     }
 
@@ -36,15 +45,87 @@ class ProjectItem extends Component {
         console.log(this.state);
     }
 
+    setEditable(editable) {
+        this.setState({isEditable: editable});
+    }
+
+    onChangeName(e) {
+        this.setState({name: e.target.value});
+    }
+
+    onChangeDescription(e) {
+        this.setState({description: e.target.value});
+    }
+
+    onChangeAudience(e) {
+        this.setState({audience: e.target.value});
+    }
+
+    onSaveChanges() {
+        //e.preventDefault();
+
+        const project = {
+            name: this.state.name,
+            description: this.state.description,
+            audience: this.state.audience
+        }
+
+        axios.defaults.withCredentials = true;
+        axios.post(`http://localhost:5000/dashboard/${this.props.currentProject}/update/`, project, {withCredentials: true})
+            .then(res => {
+                console.log(res.data);
+                this.setState({isEditable: false});
+            });
+    }
+
     render() {
-        return (
-            <a href="#" className={`list-group-item list-group-item-action`} 
-                onClick={() => {this.props.setCurrentProject(this.state.id); this.selectItem(); console.log(this.state)}}> 
-                {this.state.name}
-                {this.state.isSelected ? <span className="fa fa-check float-right text-success"></span> : <span className="fa fa-check float-right text-light"></span>} 
-                <span className="badge badge-pill badge-primary float-right mr-2">0</span>
-            </a>
-        );
+
+        if (this.state.isEditable) {
+            return (
+                <Card>
+                    <Card.Header>
+                        <Accordion.Toggle as={Button} variant="link" eventKey={`${this.props.id}`}>
+                            <input type="text" value={this.state.name} onChange={this.onChangeName}></input>
+                        </Accordion.Toggle>
+                        {this.state.isSelected ? <span className="fa fa-check float-right text-success"></span> : <span className="fa fa-check float-right text-light"></span>} 
+                        <span className="badge badge-pill badge-primary float-right mr-2">0</span>
+                    </Card.Header>
+                    <Accordion.Collapse eventKey={`${this.props.id}`}>
+                        <Card.Body>
+                            <h6>Description:</h6>
+                            <textarea className="form-control" onChange={this.onChangeDescription}>{this.state.description}</textarea>
+                            <h6>Target Audience:</h6>
+                            <textarea className="form-control" onChange={this.onChangeAudience}>{this.state.audience}</textarea>
+                            <button className="btn btn-sm btn-success float-right m-3" onClick={() => {this.onSaveChanges()}}>Save Changes</button>
+                            <button className="btn btn-sm btn-danger float-right m-3" onClick={() => {this.setEditable(false)}}>Cancel</button>
+                        </Card.Body>
+                    </Accordion.Collapse>
+                </Card>
+            );
+        }
+        else {
+            return (
+                <Card>
+                    <Card.Header>
+                        <Accordion.Toggle as={Button} variant="link" eventKey={`${this.props.id}`}>
+                            {this.state.name}
+                        </Accordion.Toggle>
+                        {this.state.isSelected ? <span className="fa fa-check float-right text-success"></span> : <span className="fa fa-check float-right text-light"></span>} 
+                        <span className="badge badge-pill badge-primary float-right mr-2">0</span>
+                    </Card.Header>
+                    <Accordion.Collapse eventKey={`${this.props.id}`}>
+                        <Card.Body>
+                            <h6>Description:</h6>
+                            {this.state.description}
+                            <h6>Target Audience:</h6>
+                            {this.state.audience}
+                            <button className="btn btn-sm btn-success float-right mb-3" onClick={() => {this.props.setCurrentProject(this.state.id); this.selectItem(); console.log(this.state)}}>Select</button>
+                            <button className="btn btn-sm btn-secondary float-right mb-3 mr-3" onClick={() => {this.setEditable(true)}}>Edit</button>
+                        </Card.Body>
+                    </Accordion.Collapse>
+                </Card>
+            );
+        }
     }
 }
 
@@ -78,7 +159,7 @@ export default class CreateProject extends Component {
 
     projectList() {
         return(this.state.projects.map(item => {
-            return <ProjectItem name={item.name} description={item.description} id={item._id} currentProject={this.props.currentProject} key={item._id} setCurrentProject={this.props.setCurrentProject}/>
+            return <ProjectItem name={item.name} description={item.description} audience={item.audience} id={item._id} currentProject={this.props.currentProject} key={item._id} setCurrentProject={this.props.setCurrentProject}/>
         }))
     }
 
@@ -126,9 +207,11 @@ export default class CreateProject extends Component {
             <div className="container">
                 <h2>Current Projects</h2>
 
-                {this.projectList()}
-
+                <Accordion>
+                    {this.projectList()}
+                </Accordion>
                 <br/>
+
                 <h2>Create a new project</h2>
 
                 <form onSubmit={this.onSubmit}>
