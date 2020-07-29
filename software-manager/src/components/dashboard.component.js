@@ -14,7 +14,7 @@ export default class Dashboard extends Component {
         this.setSprints = this.setSprints.bind(this);
 
         this.state = {
-            activeComponent: "sprint",
+            activeComponent: "calendar",
             sprints: []
         }
 
@@ -70,25 +70,26 @@ export default class Dashboard extends Component {
             return (
                 <div className="container-fluid">
                     <div className="row">
-                        <nav className="col-md-3">
+                        <nav className="col-md-2 bg-dark-green">
                             <ul className="navbar-nav">
                                 <li className="nav-item">
-                                    <button className="btn btn-link" onClick={() => {this.setActiveComponent('calendar'); this.setSprints()}}>Dashboard</button>
+                                    <button className="btn btn-link btn-lg text-light" onClick={() => {this.setActiveComponent('calendar'); this.setSprints()}}>Dashboard</button>
                                 </li>
                                 <li className="nav-item">
-                                    <button className="btn btn-link" onClick={() => this.setActiveComponent('projects')}>Projects</button>
+                                    <button className="btn btn-link btn-lg text-light" onClick={() => this.setActiveComponent('projects')}>Projects</button>
                                 </li>
                                 <li className="nav-item">
-                                    <button className="btn btn-link" onClick={() => this.setActiveComponent('backlog')}>Backlog</button>
+                                    <button className="btn btn-link btn-lg text-light" onClick={() => this.setActiveComponent('backlog')}>Backlog</button>
                                 </li>
                                 <li className="nav-item">
-                                    <button className="btn btn-link" onClick={() => this.setActiveComponent('sprints')}>Sprints</button>
+                                    <button className="btn btn-link btn-lg text-light" onClick={() => this.setActiveComponent('sprints')}>Sprints</button>
                                 </li>
                             </ul>
                         </nav>
-                        <div className="col-md-8">
+                        <div className="col">
                             {this.activeComponent({currentProject: this.props.currentProject, sprints: this.state.sprints, comp: this.state.activeComponent})}
                         </div>
+                        
                     </div>
                 </div>
             );
