@@ -86,16 +86,19 @@ export default class Calendar extends Component {
             else {
                 currentDate = new Date(year, month, i - startDay + 1);
 
-                if (currentDate.toDateString() === new Date(this.props.sprints[0].startDate).toDateString()) {
-                    sprintDayCounter = (Math.round((new Date(this.props.sprints[0].endDate) - new Date(this.props.sprints[0].startDate)) / (1000*60*60*24)));
-                    console.log(sprintDayCounter);
-                }
-                else if (sprintDayCounter > 0) {
-                    isSprintDay = true;
-                    sprintDayCounter--;
-                }
-                else {
-                    isSprintDay = false;
+                if (this.props.sprints.length != 0) {
+                    
+                    if (currentDate.toDateString() === new Date(this.props.sprints[0].startDate).toDateString()) {
+                            sprintDayCounter = (Math.round((new Date(this.props.sprints[0].endDate) - new Date(this.props.sprints[0].startDate)) / (1000*60*60*24)));
+                            console.log(sprintDayCounter);
+                    }   
+                    else if (sprintDayCounter > 0) {
+                        isSprintDay = true;
+                        sprintDayCounter--;
+                    }
+                    else {
+                        isSprintDay = false;
+                    }
                 }
                 newDays.push(<CalendarDay dayNum={currentDate.getDate()} isSprintDay={isSprintDay} key={i}/>);
             }
@@ -128,10 +131,10 @@ export default class Calendar extends Component {
     render() {
 
         return (
-            <div className="container">
+            <div className="container bg-light">
                 <h2>Sprint Calendar</h2>
 
-                <nav aria-label="Page navigation example">
+                <nav aria-label="Page navigation">
                 <ul className="pagination">
                     <li className="page-item">
                     <a className="page-link" href="#" aria-label="Previous" onClick={() => this.setCalendarDays(this.state.currentDate.getMonth() - 1, this.state.currentDate.getFullYear())}>
